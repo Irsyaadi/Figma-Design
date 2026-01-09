@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Select Pages Modal</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Modal Container */
+    .modal {
+      width: 360px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    /* List Section */
+    .list {
+      margin-bottom: 16px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 4px;
+      font-size: 14px;
+      color: #1f2937;
+      cursor: pointer;
+    }
+
+    .row input {
+      width: 16px;
+      height: 16px;
+      accent-color: #2563eb;
+      cursor: pointer;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 6px 0;
+    }
+
+    /* Done Button */
+    .done-btn {
+      width: 100%;
+      height: 44px;
+      border: none;
+      border-radius: 8px;
+      background: #facc15;
+      color: #111827;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .done-btn:hover {
+      background: #fbbf24;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="modal">
+    <div class="list">
+      <label class="row">
+        <span>All pages</span>
+        <input type="checkbox" id="all-pages" />
+      </label>
+
+      <hr />
+
+      <label class="row">
+        <span>Page 1</span>
+        <input type="checkbox" class="page" />
+      </label>
+
+      <label class="row">
+        <span>Page 2</span>
+        <input type="checkbox" class="page" />
+      </label>
+
+      <label class="row">
+        <span>Page 3</span>
+        <input type="checkbox" class="page" />
+      </label>
+
+      <label class="row">
+        <span>Page 4</span>
+        <input type="checkbox" class="page" />
+      </label>
+    </div>
+
+    <button class="done-btn" onclick="handleDone()">Done</button>
+  </div>
+
+  <script>
+    const allPagesCheckbox = document.getElementById("all-pages");
+    const pageCheckboxes = document.querySelectorAll(".page");
+
+    // Toggle all pages
+    allPagesCheckbox.addEventListener("change", () => {
+      pageCheckboxes.forEach(cb => {
+        cb.checked = allPagesCheckbox.checked;
+      });
+    });
+
+    // Sync master checkbox
+    pageCheckboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        const allChecked = [...pageCheckboxes].every(c => c.checked);
+        allPagesCheckbox.checked = allChecked;
+      });
+    });
+
+    function handleDone() {
+      const selectedPages = [...pageCheckboxes]
+        .map((cb, i) => cb.checked ? `Page ${i + 1}` : null)
+        .filter(Boolean);
+
+      alert(
+        selectedPages.length
+          ? `Selected: ${selectedPages.join(", ")}`
+          : "No pages selected"
+      );
+    }
+  </script>
+
+</body>
+</html>
