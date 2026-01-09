@@ -1,0 +1,21 @@
+<div class="modal">
+  <div class="list">
+    <label class="row">
+      <span>All pages</span>
+      <input type="checkbox" [checked]="allSelected" (change)="toggleAll()" />
+    </label>
+
+    <hr />
+
+    <label class="row" *ngFor="let page of pages">
+      <span>{{ page }}</span>
+      <input
+        type="checkbox"
+        [checked]="selected.includes(page)"
+        (change)="togglePage(page)"
+      />
+    </label>
+  </div>
+
+  <button class="done-btn" (click)="handleDone()">Done</button>
+</div>
